@@ -1,24 +1,53 @@
 const { Router } = require('express');
 const router = Router();
-
 const User = require('../models/User');
-
 const jwt = require('jsonwebtoken');
 
 router.get('/', (req, res) => {
-    res.send('hello')
+    res.send('Hi Bitch! Your Backend Is Worked Now! ^^')
 });
 
-router.post('/signin', async (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
     const user = await User.findOne({email});
-    if (!user) return res.status(401).send('The email doen\' exists');
-    if (user.password !== password) return res.status(401).send('Wrong Password');
 
-		const token = jwt.sign({_id: user._id}, 'secretkey');
+    if (!user) 
+      return res.status(404).send('Пользователь с таким почтовым адресом не найден! Попробуйте изменить email адрес.');
 
-    return res.status(200).json({token});
+    if (user.password !== password) 
+      return res.status(401).send('Неправильный пароль! Попробуйте использовать другой пароль.');
+
+		const token = jwt.sign({_id: user._id, email: user.email, password: user.password, role: user.role }, '0!Wh1_JwH2o3z', {expiresIn: 60 * 60});
+
+    if(token){
+      return res.status(200).json('Bearer ' + token);
+    } else{
+      console.log('Непредвиденная ошибка при генерации JWT токена!');
+    }
 });
+
+router.post('/register', async (req, res) => {
+  const { email, password } = req.body;
+  const condit = await User.findOne({email: email});
+  if (condit){
+    res.status(409).json({
+      message: 'Такая электронная почта уже занята. Попробуйте использовать другой email адресс для регистрации!'
+    })
+  } else{
+      const user = new User({
+        email: email,
+        password: password,
+        role: 'USER'
+      })
+
+      try{
+        await user.save()
+        res.status(201).json(user)
+        console.log('User:' + user + 'Успешно сохранён в БД!')
+      } catch(e) {
+        console.log(e.message)
+      }
+  }
+})
 
 module.exports = router;
