@@ -20,7 +20,8 @@ router.post('/login', async (req, res) => {
 		const token = jwt.sign({_id: user._id, email: user.email, password: user.password, role: user.role }, '0!Wh1_JwH2o3z', {expiresIn: 60 * 60});
 
     if(token){
-      return res.status(200).json('Bearer ' + token);
+      // return res.status(200).json('Bearer ' + token);
+      return res.status(200).json(token);
     } else{
       console.log('Непредвиденная ошибка при генерации JWT токена!');
     }
@@ -28,8 +29,8 @@ router.post('/login', async (req, res) => {
 
 router.post('/register', async (req, res) => {
   const { email, password } = req.body;
-  const condit = await User.findOne({email: email});
-  if (condit){
+  const user = await User.findOne({email: email});
+  if (user){
     res.status(409).json({
       message: 'Такая электронная почта уже занята. Попробуйте использовать другой email адресс для регистрации!'
     })
@@ -43,7 +44,6 @@ router.post('/register', async (req, res) => {
       try{
         await user.save()
         res.status(201).json(user)
-        console.log('User:' + user + 'Успешно сохранён в БД!')
       } catch(e) {
         console.log(e.message)
       }

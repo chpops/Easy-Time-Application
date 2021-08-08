@@ -1,0 +1,23 @@
+.red-text{
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+    
+}
+
+.input-field{
+    margin: 16px;
+}
+
+label{
+    margin-right: 16px;
+}
+
+.card-title{
+    text-align: center;
+}
+
+.test-acc-capt{
+    color: rgb(0, 141, 0);
+    font-weight: bold;
+}

@@ -1,0 +1,80 @@
+<form 
+    class="card"
+    [formGroup] = "form"
+    (ngSubmit)="onSubmit()"
+>
+    <div class="card-content">
+        <h1 class="card-title">Вход в систему</h1>
+
+        <table class="test-acc-table">
+            <caption class="test-acc-capt">Test Account</caption>
+                
+                <tr>
+                <th colspan="2" scope="row">Email: </th>&nbsp;
+                <td>test@mail.com</td>
+                </tr>
+                <tr>
+                <th colspan="2" scope="row">Password: </th>&nbsp;
+                <td>testpass</td>
+                </tr>
+            </table>
+
+        <div class="input-field">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input 
+                    formControlName = "email"
+                    id="email" 
+                    type="email"
+                >
+                <br>
+                <!-- <span 
+                    class="helper-text red-text"
+                    *ngIf="form.get('email').invalid && form.get('email').touched"
+                    >
+                    <span *ngIf="form.get('email').errors['required']">Email не должен быть пустым!</span>
+                    <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес!</span>
+                </span> -->
+            </div>
+        </div>
+
+
+        <div class="input-field">
+            <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input 
+                formControlName="password"
+                id="password" 
+                type="password"
+            >
+            <br>
+            <!-- <span 
+            class="helper-text red-text"
+            *ngIf="form.get('password').invalid && form.get('password').touched"
+            > -->
+                <!-- <span *ngIf="form.get('password').errors['required']">Пароль не должен быть пустым!</span> -->
+                <!-- <span *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']"> -->
+                    <!-- Пароль должен быть больше {{form.get('password').errors['minlength']['requiredLength']}} символов. -->
+                    <!-- <br> -->
+                    <!-- Сейчас используется {{form.get('password').errors['minlength']['actualLength']}} символа. -->
+                <!-- </span> -->
+            <!-- </span> -->
+        </div>
+    </div>
+
+        <div class="card-action">
+            <button 
+                type="submit"
+                class="modal-action btn waves-effect"
+                [disabled]="form.invalid"
+                > 
+                Войти
+            </button>
+        </div>
+    </div>
+
+    <!-- <div class="result token">
+        <label>JWT Token: + </label>
+    </div> -->
+</form>
+
