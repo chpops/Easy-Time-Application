@@ -50,12 +50,23 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
+import { HomeComponent } from './home/home.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const appRoutes: Routes = [
+  {
+    path: 'home', component: HomeComponent
+  },
+  {
+    path: 'login', component: LoginComponent
+  }
+];
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +76,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ReactiveFormsModule,
     HttpClientModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    RouterModule.forRoot(appRoutes)
   ],
   exports:[
     A11yModule,
@@ -113,6 +125,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     PortalModule,
     ScrollingModule,
   ],
+  providers: [LoginComponent, HomeComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

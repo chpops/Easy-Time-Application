@@ -8,9 +8,11 @@ import { Observable } from "rxjs";
 })
 
 export class AuthService{
-    
+
     private URL = 'http://localhost:4000/api';
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient){
+      
+    }
 
     register(){}
     
@@ -30,4 +32,6 @@ export class AuthService{
       getToken() {
         return localStorage.getItem('token');
       }
+
+     
 }

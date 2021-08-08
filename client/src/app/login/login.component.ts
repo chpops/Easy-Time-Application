@@ -1,19 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormControlDirective, FormGroup, FormGroupName, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   form : FormGroup = new FormGroup({})
+  aSub: Subscription = new Subscription()
+  private token = null;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+    ) {
    }
 
   ngOnInit() { 
@@ -23,12 +31,20 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  onSubmit(){
-    this.authService.login(this.form.value).subscribe(
+  ngOnDestroy(){
+    if(this.aSub){
+      this.aSub.unsubscribe();
+    }
+  }
+
+ onSubmit(){
+    this.form.disable();
+
+     this.aSub = this.authService.login(this.form.value).subscribe(
       res => {
         localStorage.setItem('token', res.token);
         console.log(localStorage.getItem('token'));
-        // this.router.navigate(['/private']);
+        this.router.navigate(['/home']);
     },
       err => {
         console.log(err);

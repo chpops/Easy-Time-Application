@@ -21,7 +21,9 @@ router.post('/login', async (req, res) => {
 
     if(token){
       // return res.status(200).json('Bearer ' + token);
-      return res.status(200).json(token);
+      return res.status(200).json({
+        token: token
+      });
     } else{
       console.log('Непредвиденная ошибка при генерации JWT токена!');
     }
