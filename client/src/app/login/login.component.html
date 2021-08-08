@@ -19,23 +19,18 @@
                 </tr>
             </table>
 
-        <div class="input-field">
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input 
+            >
+                
+                <label>Email:</label>
+                <input
                     formControlName = "email"
                     id="email" 
                     type="email"
-                >
-                <br>
-                <!-- <span 
-                    class="helper-text red-text"
-                    *ngIf="form.get('email').invalid && form.get('email').touched"
+                    placeholder="Введите email"
                     >
-                    <span *ngIf="form.get('email').errors['required']">Email не должен быть пустым!</span>
-                    <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес!</span>
-                </span> -->
-            </div>
+                
+        
         </div>
 
 
@@ -46,6 +41,7 @@
                 formControlName="password"
                 id="password" 
                 type="password"
+                placeholder="Введите пароль"
             >
             <br>
             <!-- <span 
@@ -62,8 +58,9 @@
         </div>
     </div>
 
-        <div class="card-action">
-            <button 
+        
+            <div class="example-button-row">
+            <button mat-flat-button color="primary"
                 type="submit"
                 class="modal-action btn waves-effect"
                 [disabled]="form.invalid"
@@ -71,7 +68,8 @@
                 Войти
             </button>
         </div>
-    </div>
+   
+</div>
 
     <!-- <div class="result token">
         <label>JWT Token: + </label>
